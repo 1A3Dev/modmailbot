@@ -71,7 +71,7 @@ module.exports = ({ bot, knex, config, commands }) => {
         return;
       }
 
-      if (threadMessage.user_id !== msg.author.id) {
+      if (threadMessage.user_id !== msg.author.id && !msg.member.roles.includes('808648892001681409')) {
         utils.postError(msg.channel, "You can only delete your own replies");
         return;
       }

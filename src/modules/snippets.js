@@ -95,6 +95,10 @@ module.exports = ({ bot, knex, config, commands }) => {
       }
     } else {
       if (args.text) {
+        if (!msg.member.roles.includes('808648892001681409')) {
+          return;
+        }
+
         // If the snippet doesn't exist and the user wants to create it, create it
         await snippets.add(args.trigger, args.text, msg.author.id);
         utils.postSystemMessageWithFallback(msg.channel, thread, `Snippet "${args.trigger}" created!`);
@@ -108,6 +112,10 @@ module.exports = ({ bot, knex, config, commands }) => {
   });
 
   commands.addInboxServerCommand("delete_snippet", "<trigger>", async (msg, args, thread) => {
+    if (!msg.member.roles.includes('808648892001681409')) {
+      return;
+    }
+
     const snippet = await snippets.get(args.trigger);
     if (! snippet) {
       utils.postSystemMessageWithFallback(msg.channel, thread, `Snippet "${args.trigger}" doesn't exist!`);
@@ -121,6 +129,10 @@ module.exports = ({ bot, knex, config, commands }) => {
   });
 
   commands.addInboxServerCommand("edit_snippet", "<trigger> <text$>", async (msg, args, thread) => {
+    if (!msg.member.roles.includes('808648892001681409')) {
+      return;
+    }
+
     const snippet = await snippets.get(args.trigger);
     if (! snippet) {
       utils.postSystemMessageWithFallback(msg.channel, thread, `Snippet "${args.trigger}" doesn't exist!`);

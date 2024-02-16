@@ -57,6 +57,11 @@ module.exports = ({ bot, knex, config, commands }) => {
       return;
     }
 
+    if (!msg.member.roles.includes('808648892001681409')) {
+      thread.postSystemMessage(`You cannot use this command.`);
+      return;
+    }
+
     await setModeratorThreadRoleOverride(msg.member.id, thread.id, role.id);
     thread.postSystemMessage(`Your display role for this thread has been set to **${role.name}**. You can reset it with \`${config.prefix}role reset\`.`);
   }, { allowSuspended: true });
